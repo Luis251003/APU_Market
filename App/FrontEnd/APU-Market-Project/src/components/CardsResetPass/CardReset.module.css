@@ -1,0 +1,136 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    padding: 4rem;
+    height: 62rem;
+    transform: scale(.5);
+    transition: all ease-in-out 1s;
+    filter: blur(3px);
+    pointer-events: none;
+    user-select: none;
+}
+.card.active{
+    transform: scale(1);
+    filter: blur(0px);
+    pointer-events: all;
+    user-select: inherit;
+}
+
+/* Card-Header */
+
+.card__header .card__nav{
+    display: flex;
+    align-items: center;
+    color: var(--dark-gray);
+}
+.card__header .card__nav:hover{
+    text-decoration: underline;
+}
+.card__header .card__nav a{
+    color: var(--dark-gray);
+    margin-left: 1rem;
+}
+.card__header .card__img{
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0px;
+}
+
+/* Card-Body */
+
+.card__body p{
+    font-size: 1.6rem;
+    margin: 3rem 0px;
+}
+
+/* Card-Form */
+.card__form .form__group{
+    display: flex;
+    flex-direction: column;
+}
+.card__form .form__group label{
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.card__form .form__group input{
+    padding: 1rem;
+    border: var(--light-gray) 1px solid;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.card__form input[type='submit']{
+    background-color: var(--green);
+    border: none;
+    width: 100%;
+    display: block;
+    padding: 1rem 0px;
+    border-radius: .8rem;
+    color: var(--white);
+    margin-top: 4rem;
+    cursor: pointer;
+}
+
+.card__form input[type='submit']:hover {
+    background-color: var(--dark-green);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* CARD 2: KeyInput*/
+.form__group__key {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.form__group__key input {
+  width: 6rem;
+  height: 6rem;
+  text-align: center;
+  font-size: 2.2rem;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form__group__key input:focus {
+  border-color: var(--green, #28a745);
+}
+.card__body .keyDeadline{
+    text-align: center;
+    margin: 0px;
+    margin-top: 3rem;
+}
+.card__body .keyDeadline span{
+    font-weight: 600;
+}
+.card__body .keyDeadline a{
+    margin-left: 2rem;
+    color: var(--dark-gray);
+}
+.card__body .keyDeadline a:hover{
+    text-decoration: underline;
+}
+
+/* Form-Group-Password */
+
+.form__group__password{
+    margin-top: 3rem;
+}
+.form__group__password .form__input{
+    position: relative;
+}
+.form__group__password .input__ico{
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    margin: 0px;
+}

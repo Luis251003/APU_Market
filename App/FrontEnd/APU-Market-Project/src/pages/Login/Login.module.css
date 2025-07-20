@@ -1,0 +1,73 @@
+.login__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+/* NOTA: Cambia el ancho del formulario*/
+.login__container .login__content{
+    min-width: 38rem;
+}
+.login__container .login__header{
+    max-width: 200px ;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+.login__container .form__group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+.login__container .form__label{
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.login__container .form__group input{
+    padding: 1rem;
+    border: var(--light-gray) 1px solid;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.5rem;
+    width: 100%;
+}
+.login__container .form__group input:focus{
+    border: 2px solid var(--green);
+}
+.login__container .form__group input::placeholder{
+    color: var(--gray);
+    font-size: 1.6rem;
+}
+.login__container input[type='submit']{
+    background-color: var(--green);
+    border: none;
+    width: 100%;
+    display: block;
+    padding: 1rem 0px;
+    border-radius: .8rem;
+    color: var(--white);
+    margin-top: 4rem;
+    cursor: pointer;
+}
+.login__container .form__footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+.login__container .form__checkbox label{
+    margin-left: .8rem;
+}
+.login__container .form__footer a{
+    color: var(--dark-gray);
+}
+
+.login__container .form__group .form__input{
+    position: relative;
+}
+.login__container .form__group .input__ico{
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

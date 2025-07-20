@@ -1,0 +1,15 @@
+.cards__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-width: 130rem;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.cards__container .carrusel{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 3rem;
+    transition: transform ease-in-out 1s;
+}
