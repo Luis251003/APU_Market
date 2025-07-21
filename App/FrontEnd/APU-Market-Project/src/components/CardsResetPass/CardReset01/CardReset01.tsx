@@ -1,6 +1,7 @@
 import styles from '../CardReset.module.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSquareEnvelope,faCaretLeft} from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 
 type Props={
     activo:number;
@@ -19,7 +20,7 @@ const CardReset01 = ({activo,setActivo}:Props)=>{
             <div className={styles.card__header}>
                 <div className={styles.card__nav}>
                     <FontAwesomeIcon icon={faCaretLeft}></FontAwesomeIcon>
-                    <a href="#">Iniciar Sesión</a>
+                    <Link to='/'>Iniciar Sesión</Link>
                 </div>
                 <div className={styles.card__img}>
                     <FontAwesomeIcon icon={faSquareEnvelope} color='#10B981' size='5x'></FontAwesomeIcon>

@@ -3,6 +3,7 @@ import logo from '../../assets/logos/logo_apu_market.jpg'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEye,faEyeSlash} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Login = ()=>{
 
@@ -37,7 +38,7 @@ const Login = ()=>{
                                         <input type="checkbox" name="remember" id="remember" />
                                         <label htmlFor="remember">Recordar Cuenta</label>
                                     </div>
-                                    <a href="#">¿Olvidaste tu cuenta?</a>
+                                    <Link to='../recovery'>¿Olvidaste tu cuenta?</Link>
                                 </div>
                             </form>
                         </div>
