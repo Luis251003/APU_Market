@@ -2,12 +2,12 @@ package com.apu.market.apu_market.entities;
 
 import java.time.LocalDate;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,20 +23,18 @@ public class Empleado {
     private String apellido;
     private String dni;
     private String telefono;
-    private String email;
     private LocalDate createdAt;
     private Boolean enabled;
 
     public Empleado(){}
-    public Empleado(String nombre, String apellido, String dni, String telefono, String email) {
+    public Empleado(String nombre, String apellido, String dni, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.telefono = telefono;
-        this.email = email;
     }
 
-    @PostConstruct
+    @PrePersist
     private void defaultValues(){
         this.createdAt = LocalDate.now();
         this.enabled = true;
@@ -71,12 +69,6 @@ public class Empleado {
     }
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
     }
     public LocalDate getCreateAt() {
         return createdAt;

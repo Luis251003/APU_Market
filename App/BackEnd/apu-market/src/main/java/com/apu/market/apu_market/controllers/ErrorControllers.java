@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.apu.market.apu_market.errors.DataNotFound;
+import com.apu.market.apu_market.errors.EmailException;
 
 @RestControllerAdvice
 public class ErrorControllers {
@@ -17,6 +18,16 @@ public class ErrorControllers {
     @ExceptionHandler(DataNotFound.class)
     public ResponseEntity<?> dataNotFound(DataNotFound ex){
         Map<String,String> body = new HashMap<>();
+        body.put("title","Data no encontrada");
+        body.put("message", ex.getMessage());
+        body.put("date",LocalDate.now().toString());
+        body.put("code", HttpStatus.NOT_FOUND.toString());
+        return ResponseEntity.badRequest().body(body);
+    }
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<?> emailException(EmailException ex){
+        Map<String,String> body = new HashMap<>();
+        body.put("title","Error de servicio email");
         body.put("message", ex.getMessage());
         body.put("date",LocalDate.now().toString());
         body.put("code", HttpStatus.NOT_FOUND.toString());

@@ -24,4 +24,8 @@ public class RolService {
     public Rol findById(Long id){
         return rolRepo.findById(id).orElseThrow(() -> new DataNotFound("Rol con ID "+id+" no fue encontrado"));
     }
+
+    public Rol findByNombre(String nombre){
+        return rolRepo.findByNombre(nombre);
+    }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.annotation.PostConstruct;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,7 +32,7 @@ public class Usuario {
     private boolean enabled;
     private LocalDate createdAt;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Empleado_ID")
     private Empleado empleado;
 
@@ -45,14 +46,15 @@ public class Usuario {
 
     public Usuario(){}
 
-    public Usuario(String email, String password, boolean enabled, Empleado empleado) {
+    public Usuario(String email, String password, boolean enabled, Empleado empleado,Set<Rol> roles) {
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.empleado = empleado;
+        this.roles = roles;
     }
 
-    @PostConstruct
+    @PrePersist
     private void defaultValues(){
         this.createdAt=LocalDate.now();
         this.enabled=true;

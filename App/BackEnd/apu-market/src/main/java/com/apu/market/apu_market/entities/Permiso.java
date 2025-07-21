@@ -16,11 +16,13 @@ public class Permiso {
     @Column(name = "Permiso_ID")
     private Long id;
     private String ruta;
+    private String descripcion;
 
     public Permiso(){}
 
-    public Permiso(String ruta) {
+    public Permiso(String ruta,String descripcion) {
         this.ruta = ruta;
+        this.descripcion = descripcion;
     }
 
     public Long getId() {
@@ -34,5 +36,11 @@ public class Permiso {
     }
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

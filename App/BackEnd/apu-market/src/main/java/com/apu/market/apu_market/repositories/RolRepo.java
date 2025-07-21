@@ -8,4 +8,7 @@ import com.apu.market.apu_market.entities.Rol;
 @Repository
 public interface RolRepo extends JpaRepository<Rol,Long>{
 
+    //Buscar por nombre
+    public Rol findByNombre(String nombre);
+
 }
