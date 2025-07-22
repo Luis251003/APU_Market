@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Código de Seguridad</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f8;
+        padding: 30px;
+        color: #333;
+      }
+      .container {
+        max-width: 500px;
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      .header {
+        font-size: 20px;
+        color: #2e6c80;
+        margin-bottom: 10px;
+      }
+      .code {
+        font-size: 32px;
+        font-weight: bold;
+        color: #007bff;
+        letter-spacing: 5px;
+        margin: 20px 0;
+      }
+      .footer {
+        font-size: 12px;
+        color: #777;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- <img src="cid:logoCorreo" alt="Logo" style="width: 120px;"/> -->
+      <div class="header">Tu código de seguridad</div>
+      <p>Hola,</p>
+      <p>Este es tu código para validar tu identidad:</p>
+      <div class="code" th:text="${codigo}"></div>
+      <p>Este código es válido por los próximos <strong>5 minutos</strong>.</p>
+      <div class="footer">
+        Si no solicitaste este código, puedes ignorar este correo.<br />
+        © 2025 APU Solutions. Todos los derechos reservados.
+      </div>
+    </div>
+  </body>
+</html>
