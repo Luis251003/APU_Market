@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apu.market.apu_market.entities.Usuario;
 import com.apu.market.apu_market.services.UsuarioService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/rest/usuario")
@@ -38,7 +42,10 @@ public class UsuarioController {
     }
     
     @PostMapping
-    public ResponseEntity<?> postUsuario(@RequestBody Usuario bean) {
+    public ResponseEntity<?> postUsuario(@Valid @RequestBody Usuario bean, BindingResult result) {
+        if(result.hasErrors()){
+            return validar(result);
+        }
         Usuario usuario = usuarioService.create(bean);
         return ResponseEntity.ok().body(usuario);
     }
@@ -57,6 +64,14 @@ public class UsuarioController {
         if(response){
             body.put("message", "El usuario con ID " + id + " ha sido eliminado");
             return ResponseEntity.ok().body(body);
+        }
+        return ResponseEntity.badRequest().body(body);
+    }
+    
+    private ResponseEntity<?> validar(BindingResult result) {
+        Map<String,String> body = new HashMap<>();
+        for(FieldError error: result.getFieldErrors()){
+            body.put(error.getField(), error.getField().concat(" ").concat(error.getDefaultMessage()));
         }
         return ResponseEntity.badRequest().body(body);
     }

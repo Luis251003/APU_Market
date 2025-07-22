@@ -6,11 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apu.market.apu_market.entities.Empleado;
 import com.apu.market.apu_market.services.EmpleadoService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +43,10 @@ public class EmpleadoController {
     }
     
     @PostMapping
-    public ResponseEntity<?> postEmpleado(@RequestBody Empleado bean) {
+    public ResponseEntity<?> postEmpleado(@Valid @RequestBody Empleado bean,BindingResult result) {
+        if(result.hasErrors()){
+            return validar(result);
+        }
         Empleado emp = empleadoService.create(bean);
         return ResponseEntity.ok().body(emp);
     }
@@ -58,6 +65,14 @@ public class EmpleadoController {
         if(response){
             body.put("message", "El empleado con ID " + id + " ha sido eliminado");
             return ResponseEntity.ok().body(body);
+        }
+        return ResponseEntity.badRequest().body(body);
+    }
+
+    private ResponseEntity<?> validar(BindingResult result) {
+        Map<String,String> body = new HashMap<>();
+        for(FieldError error : result.getFieldErrors()){
+            body.put(error.getField(),error.getField().concat(" ").concat(error.getDefaultMessage()));
         }
         return ResponseEntity.badRequest().body(body);
     }

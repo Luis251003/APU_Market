@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +17,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_Usuario")
@@ -27,13 +29,18 @@ public class Usuario {
     @Column(name = "Usuario_ID")
     private Long id;
 
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
+    @NotBlank
     private String password;
     private boolean enabled;
     private LocalDate createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "Empleado_ID")
+    @NonNull
     private Empleado empleado;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -42,14 +49,14 @@ public class Usuario {
         joinColumns = @JoinColumn(name="Usuario_ID"),
         inverseJoinColumns = @JoinColumn(name="Rol_ID")
     )
+    @NonNull
     private Set<Rol> roles = new HashSet<>();
 
     public Usuario(){}
 
-    public Usuario(String email, String password, boolean enabled, Empleado empleado,Set<Rol> roles) {
+    public Usuario(@Email @NotBlank String email, @NotBlank String password, Empleado empleado, Set<Rol> roles) {
         this.email = email;
         this.password = password;
-        this.enabled = enabled;
         this.empleado = empleado;
         this.roles = roles;
     }

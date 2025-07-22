@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "TB_Empleado")
@@ -18,21 +20,32 @@ public class Empleado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Empleado_ID")
     private Long id;
-
+    @NotBlank
     private String nombre;
+    @NotBlank
     private String apellido;
+    @NotBlank
+    @Pattern(regexp = "^[\\d]{8}$",message = "debe contener solo 8 dígitos")
+    @Column(unique = true)
     private String dni;
+    @NotBlank
+    @Pattern(regexp = "^[9][\\d]{8}$",message = "no es un formato válido")
+    @Column(unique = true)
     private String telefono;
     private LocalDate createdAt;
     private Boolean enabled;
 
     public Empleado(){}
-    public Empleado(String nombre, String apellido, String dni, String telefono) {
+    public Empleado(
+            @NotBlank String nombre, @NotBlank String apellido,
+            @NotBlank @Pattern(regexp = "^[\\d]{8}$", message = "El DNI debe contener solo 8 dígitos") String dni,
+            @NotBlank @Pattern(regexp = "^[9][\\d]{8}$", message = "El número telefónico no es valido") String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.telefono = telefono;
     }
+
 
     @PrePersist
     private void defaultValues(){
@@ -70,18 +83,16 @@ public class Empleado {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    public LocalDate getCreateAt() {
-        return createdAt;
-    }
-    public void setCreateAt(LocalDate createAt) {
-        this.createdAt = createAt;
-    }
     public Boolean getEnabled() {
         return enabled;
     }
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
-    
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 }

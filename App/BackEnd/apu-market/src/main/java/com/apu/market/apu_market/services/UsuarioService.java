@@ -7,9 +7,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apu.market.apu_market.entities.Empleado;
 import com.apu.market.apu_market.entities.Rol;
 import com.apu.market.apu_market.entities.Usuario;
 import com.apu.market.apu_market.errors.DataNotFound;
+import com.apu.market.apu_market.errors.ValidateException;
 import com.apu.market.apu_market.repositories.RolRepo;
 import com.apu.market.apu_market.repositories.UsuarioRepo;
 
@@ -20,6 +22,9 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepo usuarioRepo;
+
+    @Autowired
+    private EmpleadoService empleadoService;
 
     @Autowired
     private RolRepo rolRepo;
@@ -34,15 +39,25 @@ public class UsuarioService {
         return usuarioRepo.findById(id).orElseThrow(() -> new DataNotFound("Usuario con ID "+id+" no fue encontrado"));
     }
 
+    //Buscar usuario por email
+    public Usuario findByEmail(String email){
+        return usuarioRepo.findByEmail(email).orElse(null);
+    }
+
     //Registrar usuario
     @Transactional
     public Usuario create(Usuario bean){
+
+        //Verificamos que el correo no este registrado
+        if(findByEmail(bean.getEmail()) != null) {
+            throw new ValidateException("El correo ya se encuentra registrado");
+        }
 
         //Interceptando roles
         Set<Rol> roles = new HashSet<>();
 
         //Validamos si hay entrada de roles
-        if(roles.size()!=0){
+        if(bean.getRoles().size()==0){
             Rol rolDB = rolRepo.findByNombre("ROLE_USER");
             roles.add(rolDB);
         }
@@ -55,6 +70,10 @@ public class UsuarioService {
         }
         //Guardamos los roles registrados
         bean.setRoles(roles);
+
+        //Registramos al empleado
+        Empleado emp = empleadoService.create(bean.getEmpleado());
+        bean.setEmpleado(emp);
         
         //Registramos el usuario
         return usuarioRepo.save(bean);
