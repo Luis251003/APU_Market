@@ -2,23 +2,23 @@ package com.apu.market.apu_market.dto;
 
 public class EmailDTO {
 
-    private String para;
+    private String destinatario;
     private String asunto;
     private String mensaje;
 
     public EmailDTO(){}
     
-    public EmailDTO(String para, String asunto, String mensaje) {
-        this.para = para;
+    public EmailDTO(String destinatario, String asunto, String mensaje) {
+        this.destinatario = destinatario;
         this.asunto = asunto;
         this.mensaje = mensaje;
     }
 
-    public String getPara() {
-        return para;
+    public String getDestinatario() {
+        return destinatario;
     }
-    public void setPara(String para) {
-        this.para = para;
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
     }
     public String getAsunto() {
         return asunto;
