@@ -1,0 +1,20 @@
+.container{
+    margin-top: 1.5rem;
+    text-align: center;
+}
+.btnResendCode{
+    background: none;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: all;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--dark-gray);
+    transition: color ease-in-out .3s;
+}
+.btnResendCode_disable{
+    pointer-events: none;
+    cursor: none;
+    color: var(--gray);
+}

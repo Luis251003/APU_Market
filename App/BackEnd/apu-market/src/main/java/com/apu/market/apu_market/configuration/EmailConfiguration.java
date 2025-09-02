@@ -43,4 +43,5 @@ public class EmailConfiguration {
     public ResourceLoader resourceLoader(){
         return new DefaultResourceLoader();
     }
+    
 }

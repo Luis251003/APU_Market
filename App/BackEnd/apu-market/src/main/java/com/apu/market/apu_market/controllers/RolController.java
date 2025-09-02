@@ -13,7 +13,7 @@ import com.apu.market.apu_market.entities.Rol;
 import com.apu.market.apu_market.services.RolService;
 
 @RestController
-@RequestMapping("/rest/rol")
+@RequestMapping("/rol")
 public class RolController {
 
     @Autowired

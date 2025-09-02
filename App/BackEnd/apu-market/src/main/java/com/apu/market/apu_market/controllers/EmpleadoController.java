@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apu.market.apu_market.dto.MessageDTO;
 import com.apu.market.apu_market.entities.Empleado;
 import com.apu.market.apu_market.services.EmpleadoService;
 
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/rest/empleado")
+@RequestMapping("/empleado")
 public class EmpleadoController {
 
     @Autowired
@@ -60,13 +61,15 @@ public class EmpleadoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEmpleado(@PathVariable String id){
         boolean response = empleadoService.delete(Long.parseLong(id));
-        Map<String,String> body = new HashMap<>();
-        body.put("message", "Error al eliminar empleado");
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setTitle("Error de eliminación");
+        messageDTO.setMessage("Hubo un error al intentar eliminar al empleado");
         if(response){
-            body.put("message", "El empleado con ID " + id + " ha sido eliminado");
-            return ResponseEntity.ok().body(body);
+            messageDTO.setTitle("Eliminación exitosa");
+            messageDTO.setMessage("El empleado con ID " + id + " ha sido eliminado");
+            return ResponseEntity.ok().body(messageDTO);
         }
-        return ResponseEntity.badRequest().body(body);
+        return ResponseEntity.badRequest().body(messageDTO);
     }
 
     private ResponseEntity<?> validar(BindingResult result) {

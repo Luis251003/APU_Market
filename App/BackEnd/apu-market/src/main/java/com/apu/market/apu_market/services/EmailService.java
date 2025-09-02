@@ -51,15 +51,12 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");
 
             helper.setTo(emailDTO.getDestinatario());
-            helper.setSubject(emailDTO.getAsunto());
+            helper.setSubject("Codigo de seguridad para recuperar contraseña");
             helper.setFrom(emailFrom);
             helper.setText(htmlContent, true);
 
-            // Adjuntar imagen embebida
-            // ClassPathResource imagen = new ClassPathResource("/static/images/logo_apu_core.png");
-            // helper.addInline("logoCorreo", imagen); // "logoCorreo" debe coincidir con el cid del HTML
-
             javaMailSender.send(mensaje);
+            
             return "Correo HTML enviado correctamente.";
         }catch(MessagingException ex){
             System.err.println(ex.getMessage());
@@ -71,6 +68,6 @@ public class EmailService {
         if(CodigoRecuperacionUtil.getCodeRecovery() != Integer.parseInt(codigo)){
             throw new ValidateException("El codigo de seguridad es incorrecto");
         }
-        return "Codigo verificado";
+        return "El codigo de seguridad es valido";
     }
 }

@@ -1,0 +1,86 @@
+.nav{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 7rem;
+    width: 100vw;
+    background-color: var(--white);
+    transition: padding .2s ease-in-out;
+}
+.nav .nav__content{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    column-gap: 2rem;
+}
+/*NAV: RUTA CONTAINER */
+.nav .nav__ruta__container span{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+/*NAV: INPUT DE BUSQUEDA */
+.nav .nav__input__container{
+    margin-left: auto;
+    color: var(--dark-gray);
+}
+.nav .nav__input__content{
+    display: flex;
+    position: relative;
+}
+.nav .nav__input__container .icon__search{
+    position: absolute;
+    top: 0px;
+    left: 1rem;
+    bottom: 0px;
+    margin: auto;
+    height: 2rem;
+}   
+.nav .nav__input__container input {
+    background-color: var(--white);
+    color: var(--light-black);
+    padding: 0.75rem 1.25rem;
+    padding-left: 4rem; /* espacio para ícono */
+    border-radius: 8px;
+    min-width: 25rem;
+    background-color: var(--light-white);
+
+    outline: none;
+    font-size: 1.4rem;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.10);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.nav .nav__input__container input:focus {
+    border-color: var(--black);
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.3),
+        0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/*NAV: BOTONES CON ICONOS */
+.nav .nav__buttons__container{
+    display: flex;
+    column-gap: 2rem;
+}
+
+.nav .nav__buttons__container .icon__button {
+    padding: 0.75rem;
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.nav .nav__buttons__container .icon__button:hover {
+    background-color: var(--light-gray);
+    transform: scale(1.05);
+}
+
+.nav .nav__buttons__container .icon__button:active {
+    transform: scale(0.95);
+}

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.apu.market.apu_market.dto.PasswordDTO;
 import com.apu.market.apu_market.entities.Empleado;
 import com.apu.market.apu_market.entities.Rol;
 import com.apu.market.apu_market.entities.Usuario;
@@ -16,7 +18,6 @@ import com.apu.market.apu_market.repositories.RolRepo;
 import com.apu.market.apu_market.repositories.UsuarioRepo;
 
 import jakarta.transaction.Transactional;
-
 @Service
 public class UsuarioService {
 
@@ -25,6 +26,9 @@ public class UsuarioService {
 
     @Autowired
     private EmpleadoService empleadoService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private RolRepo rolRepo;
@@ -42,6 +46,12 @@ public class UsuarioService {
     //Buscar usuario por email
     public Usuario findByEmail(String email){
         return usuarioRepo.findByEmail(email).orElse(null);
+    }
+
+    //Obtener permisos por id
+    public Set<String> getPermisosByUsername(String email){
+        Set<String> permisos = usuarioRepo.findPermisosByEmail(email);
+        return permisos;
     }
 
     //Registrar usuario
@@ -93,5 +103,12 @@ public class UsuarioService {
             return true;
         }
         return false;
+    }
+
+    //Cambiar contraseña
+    public String passwordReset(PasswordDTO passwordDTO){
+        int i = usuarioRepo.updatePasswordByEmail(passwordDTO.getEmail(), passwordEncoder.encode(passwordDTO.getPassword()));
+        if(i!=1) throw new ValidateException("Hubo un error al modificar la contraseña");
+        return "La contraseña ha sido modificada";
     }
 }

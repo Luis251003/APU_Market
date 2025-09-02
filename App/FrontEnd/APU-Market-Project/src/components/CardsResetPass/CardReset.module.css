@@ -25,12 +25,19 @@
     align-items: center;
     color: var(--dark-gray);
 }
-.card__header .card__nav:hover{
-    text-decoration: underline;
-}
+.card__header .card__nav .btn_back,
 .card__header .card__nav a{
     color: var(--dark-gray);
     margin-left: 1rem;
+    background: none;
+    border: none;
+    transition: all ease-in-out .1s;
+    font-weight: 500;
+}
+.card__header .card__nav .card__nav__content:hover,
+.card__header .card__nav .card__nav__content:hover .btn_back{
+    font-weight: 600;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
 }
 .card__header .card__img{
     display: flex;
@@ -133,4 +140,24 @@
     transform: translateY(-50%);
     cursor: pointer;
     margin: 0px;
+}
+.span__email{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+
+/* Card:02 */
+
+.card__header .card__nav.card__nav_disable{
+    color: var(--gray);
+}
+.card__header .card__nav .btn_back{
+    cursor: pointer;
+    pointer-events: all;
+}
+.card__header .card__nav .btn_back_disable{
+    cursor: none;
+    pointer-events: none;
+    color: var(--gray);
 }

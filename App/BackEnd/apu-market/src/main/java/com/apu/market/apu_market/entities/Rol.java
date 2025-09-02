@@ -12,24 +12,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB_Rol")
+@Table(name = "tb_rol")
 public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Rol_ID")
+    @Column(name = "rol_id")
     private Long id;
     private String nombre;
     private String descripcion;
+    private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "TB_rol_permiso",
-        joinColumns = @JoinColumn(name="Rol_ID"),
-        inverseJoinColumns = @JoinColumn(name="Permiso_ID")
+        name = "tb_rol_permiso",
+        joinColumns = @JoinColumn(name="rol_id"),
+        inverseJoinColumns = @JoinColumn(name="permiso_id")
     )
     private Set<Permiso> permisos = new HashSet<>();
 
@@ -37,6 +39,11 @@ public class Rol {
     public Rol(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+    }
+
+    @PrePersist
+    private void defaultValues(){
+        this.enabled=true;
     }
 
     public Long getId() {
@@ -62,6 +69,12 @@ public class Rol {
     }
     public void setPermisos(Set<Permiso> permisos) {
         this.permisos = permisos;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
     
 }

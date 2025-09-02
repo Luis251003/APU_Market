@@ -21,12 +21,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "TB_Usuario")
+@Table(name = "tb_usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Usuario_ID")
+    @Column(name = "usuario_id")
     private Long id;
 
     @Email
@@ -39,15 +39,15 @@ public class Usuario {
     private LocalDate createdAt;
 
     @OneToOne()
-    @JoinColumn(name = "Empleado_ID")
+    @JoinColumn(name = "empleado_id")
     @NonNull
     private Empleado empleado;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "TB_usuario_rol",
-        joinColumns = @JoinColumn(name="Usuario_ID"),
-        inverseJoinColumns = @JoinColumn(name="Rol_ID")
+        name = "tb_usuario_rol",
+        joinColumns = @JoinColumn(name="usuario_id"),
+        inverseJoinColumns = @JoinColumn(name="rol_id")
     )
     @NonNull
     private Set<Rol> roles = new HashSet<>();

@@ -3,6 +3,7 @@ package com.apu.market.apu_market.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.apu.market.apu_market.dto.MessageDTO;
 import com.apu.market.apu_market.entities.Usuario;
+import com.apu.market.apu_market.security.JWTConfig;
 import com.apu.market.apu_market.services.UsuarioService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+
 @RestController
-@RequestMapping("/rest/usuario")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
@@ -40,6 +47,12 @@ public class UsuarioController {
         Usuario usuario = usuarioService.findById(Long.parseLong(id));
         return ResponseEntity.ok().body(usuario);
     }
+
+    @GetMapping("/permisos/{email}")
+    public ResponseEntity<?> getPermisosByEmail(@PathVariable String email){
+        Set<String> permisos = usuarioService.getPermisosByUsername(email);
+        return ResponseEntity.ok().body(permisos);
+    }
     
     @PostMapping
     public ResponseEntity<?> postUsuario(@Valid @RequestBody Usuario bean, BindingResult result) {
@@ -50,6 +63,16 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuario);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response,HttpServletRequest request) {
+        Cookie cookie = new Cookie(JWTConfig.COOKIE_NAME, null);
+        cookie.setHttpOnly(isHttps(request));
+        cookie.setPath("/");    // mismo path que usaste al crearla
+        cookie.setMaxAge(0);    // expira inmediatamente
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok().body(new MessageDTO("Sesion Cerrada", "La sesión ha sido cerrada con exito"));
+    }
     @PutMapping
     public ResponseEntity<?> putUsuario(@RequestBody Usuario bean) {
         Usuario usuario = usuarioService.update(bean);
@@ -74,5 +97,10 @@ public class UsuarioController {
             body.put(error.getField(), error.getField().concat(" ").concat(error.getDefaultMessage()));
         }
         return ResponseEntity.badRequest().body(body);
+    }
+
+    private boolean isHttps(HttpServletRequest request) {
+        return request.isSecure() ||
+        "https".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
     }
 }

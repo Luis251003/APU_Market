@@ -13,12 +13,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "TB_Empleado")
+@Table(name = "tb_empleado")
 public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Empleado_ID")
+    @Column(name = "empleado_id")
     private Long id;
     @NotBlank
     private String nombre;
