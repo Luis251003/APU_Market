@@ -26,7 +26,7 @@ INSERT INTO tb_rol_permiso(rol_id,permiso_id)VALUES
 -- EMPLEADO por default
 -- =========================================
 INSERT INTO tb_empleado(created_at, enabled, apellido, dni, nombre, telefono) VALUES 
-(NOW(), true, 'Cabrera Ortiz', '76692565', 'Luis Antonio', '972226417');
+(NOW(), true, 'Cabrera Ortiz', '88888888', 'Luis Antonio', '999999999');
 
 -- =========================================
 -- USUARIOS (password ya encriptado con BCrypt)

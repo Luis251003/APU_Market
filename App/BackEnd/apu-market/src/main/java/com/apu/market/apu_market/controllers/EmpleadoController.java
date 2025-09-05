@@ -52,9 +52,9 @@ public class EmpleadoController {
         return ResponseEntity.ok().body(emp);
     }
 
-    @PutMapping
-    public ResponseEntity<?> putEmpleado(@RequestBody Empleado bean) {
-        Empleado emp = empleadoService.update(bean);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putEmpleado(@PathVariable Long id,@RequestBody Empleado bean) {
+        Empleado emp = empleadoService.update(id,bean);
         return ResponseEntity.ok().body(emp);
     }
 

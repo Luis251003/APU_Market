@@ -16,4 +16,18 @@ const postEmpleado = async (bean:Empleado) =>{
     }
 }
 
-export {getEmpleados,postEmpleado}
+const putEmpleado = async (id:number,bean:Empleado) =>{
+    const response = await axios.put(`${API_REST}/${id}`,bean);
+    if(response.data){
+        return response;
+    }
+}
+
+const deleteEmpleado = async (id:number) =>{
+    const response = await axios.delete(`${API_REST}/${id}`);
+    if(response.data){
+        return response;
+    }
+}
+
+export {getEmpleados,postEmpleado,putEmpleado,deleteEmpleado}

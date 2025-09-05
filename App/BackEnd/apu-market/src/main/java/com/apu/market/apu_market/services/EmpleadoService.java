@@ -18,7 +18,7 @@ public class EmpleadoService {
 
     //Obtener todos los empleados
     public List<Empleado> findAll(){
-        return empleadoRepo.findAll();
+        return empleadoRepo.findByEnabledTrue();
     }
 
     //Buscar empleado por ID
@@ -49,14 +49,15 @@ public class EmpleadoService {
     }
 
     //Actualizar empleado
-    public Empleado update(Empleado bean){
+    public Empleado update(Long id,Empleado bean){
+        bean.setId(id);
         return empleadoRepo.save(bean);
     }
 
     //Eliminar empleado
     public boolean delete(Long id){
         if(this.findById(id) != null){
-            empleadoRepo.deleteById(id);
+            empleadoRepo.updateEnabled(id,false);
             return true;
         }
         return false;

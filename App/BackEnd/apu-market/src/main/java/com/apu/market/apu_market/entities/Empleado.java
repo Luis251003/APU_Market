@@ -1,6 +1,6 @@
 package com.apu.market.apu_market.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,9 @@ public class Empleado {
     @Pattern(regexp = "^[9][\\d]{8}$",message = "no es un formato válido")
     @Column(unique = true)
     private String telefono;
-    private LocalDate createdAt;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
     private Boolean enabled;
 
     public Empleado(){}
@@ -48,9 +50,13 @@ public class Empleado {
 
 
     @PrePersist
-    private void defaultValues(){
-        this.createdAt = LocalDate.now();
-        this.enabled = true;
+    private void defaultValues() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (this.enabled == null) {
+            this.enabled = true;
+        }
     }
 
     public Long getId() {
@@ -89,10 +95,10 @@ public class Empleado {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
